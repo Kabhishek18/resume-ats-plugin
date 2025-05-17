@@ -1,0 +1,23 @@
+def normalize_text(text: str) -> str:
+    """
+    Normalize text by removing extra whitespace, etc.
+    
+    Args:
+        text: Text to normalize
+        
+    Returns:
+        Normalized text
+    """
+    # First, preserve double newlines by replacing them with a placeholder
+    text = re.sub(r'\n\s*\n', 'DOUBLE_NEWLINE_PLACEHOLDER', text)
+    
+    # Replace multiple whitespace with single space
+    text = re.sub(r'\s+', ' ', text)
+    
+    # Restore double newlines
+    text = text.replace('DOUBLE_NEWLINE_PLACEHOLDER', '\n\n')
+    
+    # Remove leading/trailing whitespace
+    text = text.strip()
+    
+    return text

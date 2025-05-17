@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "resume-ats-plugin"
+version = "0.1.0"
+description = "A plugin to analyze and optimize resumes for Applicant Tracking Systems (ATS)"
+readme = "README.md"
+authors = [
+    {name = "Kabhishek18", email = "developer@kabhishek18.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Office/Business",
+    "Topic :: Text Processing :: Markup",
+]
+requires-python = ">=3.7"
+dependencies = [
+    "PyPDF2>=2.0.0",
+    "python-docx>=0.8.11",
+    "nltk>=3.6.0",
+    "spacy>=3.0.0",
+    "scikit-learn>=1.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/resume-ats-plugin"
+"Bug Tracker" = "https://github.com/yourusername/resume-ats-plugin/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=22.1.0",
+    "isort>=5.10.0",
+    "mypy>=0.910",
+]
+
+[project.entry-points."console_scripts"]
+resume-ats = "resume_ats.core:main"
