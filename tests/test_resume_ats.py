@@ -419,36 +419,41 @@ class TestEnhancedFeatures(TestCase):
         os.unlink(self.temp_file2.name)
         shutil.rmtree(self.temp_dir)
     
-    @mock.patch('src.resume_ats.pdf_reporter.generate_pdf_report')
-    @mock.patch('src.resume_ats.core.ResumeATS.analyze')
-    @mock.patch('os.path.exists')
-    def test_analyze_and_report(self, mock_exists, mock_analyze, mock_generate_pdf):
+    def test_analyze_and_report(self):
         """Test analyze_and_report functionality."""
-        # Mock file existence checks
-        mock_exists.return_value = True
-        
-        # Mock analyze return value
-        mock_analyze.return_value = {
+        # Create a more direct approach with no patching of external functions
+        # Instead use MagicMock to create a controllable environment
+        self.enhanced_ats.analyze = mock.MagicMock(return_value={
             "status": "success",
             "stats": {"overall_ats_score": 85},
             "sections_detected": ["summary", "experience", "skills"]
-        }
+        })
         
-        # Mock PDF generation - directly return the input path to avoid dealing with real files
-        def mock_generate_pdf_side_effect(result, path):
-            return path
-        mock_generate_pdf.side_effect = mock_generate_pdf_side_effect
+        # Create a mock for pdf_reporter.generate_pdf_report that we can later verify
+        original_generate_pdf = enhanced.generate_pdf_report
         
-        # Test analyze_and_report
-        analysis, pdf_path = self.enhanced_ats.analyze_and_report(
-            self.temp_file.name, 
-            self.sample_job_description,
-            "report.pdf"  # Specify the output path directly
-        )
+        try:
+            # Replace with our mock
+            mock_pdf = mock.MagicMock(return_value="report.pdf")
+            enhanced.generate_pdf_report = mock_pdf
+            
+            # Test analyze_and_report directly
+            analysis, pdf_path = self.enhanced_ats.analyze_and_report(
+                self.temp_file.name, 
+                self.sample_job_description,
+                "report.pdf"
+            )
+            
+            # Check results
+            self.assertEqual(analysis["status"], "success")
+            self.assertEqual(pdf_path, "report.pdf")
+            
+            # Check if generate_pdf_report was called (without checking exact arguments)
+            self.assertTrue(mock_pdf.called)
         
-        # Check results
-        self.assertEqual(analysis["status"], "success")
-        self.assertEqual(pdf_path, "report.pdf")
+        finally:
+            # Restore the original function
+            enhanced.generate_pdf_report = original_generate_pdf
         
         # Check if analyze was called with correct arguments
         mock_analyze.assert_called_once_with(self.temp_file.name, self.sample_job_description)
@@ -658,64 +663,72 @@ class TestEnhancedFeatures(TestCase):
         self.assertEqual(comparison["rankings"]["overall_ats_score"][0], "Python Developer")
         self.assertIn("keyword_analysis", comparison)
     
-    @mock.patch('src.resume_ats.enhanced.analyze_resume')
-    @mock.patch('src.resume_ats.pdf_reporter.generate_pdf_report')
-    @mock.patch('os.path.exists')
-    def test_analyze_and_report_function(self, mock_exists, mock_generate_pdf, mock_analyze):
+    def test_analyze_and_report_function(self):
         """Test analyze_and_report convenience function."""
-        # Mock file existence
-        mock_exists.return_value = True
+        # Create a more direct test with monkeypatching
         
-        # Mock function return values
-        mock_analyze.return_value = {"status": "success", "test": True}
+        # Save original functions
+        original_analyze = enhanced.analyze_resume
+        original_pdf = enhanced.generate_pdf_report
         
-        # Mock PDF generation - return the input path
-        def mock_generate_pdf_side_effect(result, path):
-            return path
-        mock_generate_pdf.side_effect = mock_generate_pdf_side_effect
-        
-        # Create a mock for the EnhancedResumeATS.analyze_and_report method
-        with mock.patch('src.resume_ats.enhanced.EnhancedResumeATS.analyze_and_report') as mock_enhanced_report:
-            # Set up the mock to return the expected values
-            mock_enhanced_report.return_value = ({"status": "success", "test": True}, "report.pdf")
+        try:
+            # Create mocks
+            mock_analyze = mock.MagicMock(return_value={"status": "success", "test": True})
+            mock_pdf = mock.MagicMock(return_value="report.pdf")
             
-            # Test function
+            # Replace the functions
+            enhanced.analyze_resume = mock_analyze
+            enhanced.generate_pdf_report = mock_pdf
+            
+            # Test the function
             result, pdf_path = analyze_and_report("fakepath.pdf", "job description", "report.pdf")
             
             # Check results
             self.assertEqual(result, {"status": "success", "test": True})
             self.assertEqual(pdf_path, "report.pdf")
-        
-        # Check if analyze_resume was called with correct arguments
-        mock_analyze.assert_called_once_with("fakepath.pdf", "job description")
-    
-    @mock.patch('src.resume_ats.enhanced.optimize_resume')
-    @mock.patch('src.resume_ats.pdf_reporter.generate_pdf_report')
-    @mock.patch('os.path.exists')
-    def test_optimize_and_report_function(self, mock_exists, mock_generate_pdf, mock_optimize):
-        """Test optimize_and_report convenience function."""
-        # Mock file existence
-        mock_exists.return_value = True
-        
-        # Mock function return values
-        mock_optimize.return_value = {"status": "success", "test": True}
-        
-        # Mock PDF generation - return the input path
-        def mock_generate_pdf_side_effect(result, path):
-            return path
-        mock_generate_pdf.side_effect = mock_generate_pdf_side_effect
-        
-        # Create a mock for the EnhancedResumeATS.optimize_and_report method
-        with mock.patch('src.resume_ats.enhanced.EnhancedResumeATS.optimize_and_report') as mock_enhanced_optimize:
-            # Set up the mock to return the expected values
-            mock_enhanced_optimize.return_value = ({"status": "success", "test": True}, "report.pdf")
             
-            # Test function
+            # Check that analyze_resume was called
+            mock_analyze.assert_called_once()
+            args, kwargs = mock_analyze.call_args
+            self.assertEqual(args[0], "fakepath.pdf")
+            self.assertEqual(args[1], "job description")
+            
+        finally:
+            # Restore original functions
+            enhanced.analyze_resume = original_analyze
+            enhanced.generate_pdf_report = original_pdf
+    
+    def test_optimize_and_report_function(self):
+        """Test optimize_and_report convenience function."""
+        # Create a more direct test with monkeypatching
+        
+        # Save original functions
+        original_optimize = enhanced.optimize_resume
+        original_pdf = enhanced.generate_pdf_report
+        
+        try:
+            # Create mocks
+            mock_optimize = mock.MagicMock(return_value={"status": "success", "test": True})
+            mock_pdf = mock.MagicMock(return_value="report.pdf")
+            
+            # Replace the functions
+            enhanced.optimize_resume = mock_optimize
+            enhanced.generate_pdf_report = mock_pdf
+            
+            # Test the function
             result, pdf_path = optimize_and_report("fakepath.pdf", "job description", "report.pdf")
             
             # Check results
             self.assertEqual(result, {"status": "success", "test": True})
             self.assertEqual(pdf_path, "report.pdf")
-        
-        # Check if optimize_resume was called with correct arguments
-        mock_optimize.assert_called_once_with("fakepath.pdf", "job description")
+            
+            # Check that optimize_resume was called
+            mock_optimize.assert_called_once()
+            args, kwargs = mock_optimize.call_args
+            self.assertEqual(args[0], "fakepath.pdf")
+            self.assertEqual(args[1], "job description")
+            
+        finally:
+            # Restore original functions
+            enhanced.optimize_resume = original_optimize
+            enhanced.generate_pdf_report = original_pdf

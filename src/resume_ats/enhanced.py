@@ -240,16 +240,17 @@ def analyze_and_report(resume_path: str, job_description: Optional[str] = None,
     Returns:
         Tuple of (analysis results, PDF report path)
     """
-    # Check if we're running in test mode (fakepath.pdf is a test indicator)
-    if resume_path == "fakepath.pdf" and 'PYTEST_CURRENT_TEST' in os.environ:
-        # When testing, don't try to actually extract text from non-existent file
-        ats = EnhancedResumeATS(config)
-        analysis = {"status": "success", "test": True}
-        return analysis, output_pdf_path or "report.pdf"
-    else:
-        # Normal operation
-        ats = EnhancedResumeATS(config)
-        return ats.analyze_and_report(resume_path, job_description, output_pdf_path)
+    # Run the analyze function first
+    analysis = analyze_resume(resume_path, job_description, config)
+    
+    # Generate the PDF report
+    if output_pdf_path is None:
+        base_name = os.path.splitext(resume_path)[0]
+        output_pdf_path = f"{base_name}_ats_report.pdf"
+    
+    pdf_path = generate_pdf_report(analysis, output_pdf_path)
+    
+    return analysis, pdf_path
 
 
 def optimize_and_report(resume_path: str, job_description: str,
@@ -267,13 +268,14 @@ def optimize_and_report(resume_path: str, job_description: str,
     Returns:
         Tuple of (optimization results, PDF report path)
     """
-    # Check if we're running in test mode (fakepath.pdf is a test indicator)
-    if resume_path == "fakepath.pdf" and 'PYTEST_CURRENT_TEST' in os.environ:
-        # When testing, don't try to actually extract text from non-existent file
-        ats = EnhancedResumeATS(config)
-        optimization = {"status": "success", "test": True}
-        return optimization, output_pdf_path or "report.pdf"
-    else:
-        # Normal operation
-        ats = EnhancedResumeATS(config)
-        return ats.optimize_and_report(resume_path, job_description, output_pdf_path)
+    # Run the optimize function
+    optimization = optimize_resume(resume_path, job_description, config)
+    
+    # Generate the PDF report
+    if output_pdf_path is None:
+        base_name = os.path.splitext(resume_path)[0]
+        output_pdf_path = f"{base_name}_optimization_report.pdf"
+    
+    pdf_path = generate_pdf_report(optimization, output_pdf_path)
+    
+    return optimization, pdf_path
