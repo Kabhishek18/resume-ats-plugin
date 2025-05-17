@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "resume-ats-plugin"
-version = "0.1.0"
+version = "0.2.0"
 description = "A plugin to analyze and optimize resumes for Applicant Tracking Systems (ATS)"
 readme = "README.md"
 authors = [
@@ -22,11 +22,15 @@ classifiers = [
 ]
 requires-python = ">=3.7"
 dependencies = [
-    "pypdf>=3.15.0",  # Updated from PyPDF2 to pypdf
+    "pypdf>=3.15.0",
     "python-docx>=0.8.11",
     "nltk>=3.6.0",
     "spacy>=3.0.0",
     "scikit-learn>=1.0.0",
+    "matplotlib>=3.5.0",    # For charts and visualizations
+    "reportlab>=3.6.0",     # For PDF report generation
+    "difflib>=0.0.0",       # For text comparison
+    "numpy>=1.20.0",        # Required for visualizations
 ]
 
 [project.urls]
@@ -43,3 +47,4 @@ dev = [
 
 [project.entry-points."console_scripts"]
 resume-ats = "resume_ats.core:main"
+resume-ats-enhanced = "resume_ats.enhanced_cli:enhanced_main"
