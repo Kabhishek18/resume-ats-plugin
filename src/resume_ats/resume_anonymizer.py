@@ -244,6 +244,9 @@ class ResumeAnonymizer:
         else:
             with open(input_path, 'r', encoding='utf-8') as f:
                 text = f.read()
+                
+        # For testing purposes - expose this method for mocking
+        text = self._extract_text(input_path, text)
         
         # Anonymize the text
         anonymized_text, replaced_items = self.anonymize_text(text)
@@ -264,6 +267,20 @@ class ResumeAnonymizer:
         
         return output_path, replaced_items
     
+    def _extract_text(self, file_path: str, text: str) -> str:
+        """Helper method to make it easier to mock during testing."""
+        return text
+        # Escape special regex characters in the original text
+        escaped_original = re.escape(original)
+        
+        # Replace with word boundaries when appropriate
+        if original[0].isalnum() and original[-1].isalnum():
+            pattern = r'\b' + escaped_original + r'\b'
+        else:
+            pattern = escaped_original
+            
+        return re.sub(pattern, replacement, text)
+    
     def _replace_text(self, text: str, original: str, replacement: str) -> str:
         """
         Replace all occurrences of original with replacement in text.
@@ -276,26 +293,6 @@ class ResumeAnonymizer:
             
         Returns:
             Modified text
-        """
-        # Escape special regex characters in the original text
-        escaped_original = re.escape(original)
-        
-        # Replace with word boundaries when appropriate
-        if original[0].isalnum() and original[-1].isalnum():
-            pattern = r'\b' + escaped_original + r'\b'
-        else:
-            pattern = escaped_original
-            
-        return re.sub(pattern, replacement, text)
-    
-    def _write_anonymized_pdf(self, input_path: str, output_path: str, anonymized_text: str) -> None:
-        """
-        Write anonymized text to a PDF file.
-        
-        Args:
-            input_path: Original PDF path
-            output_path: Output PDF path
-            anonymized_text: Anonymized text content
         """
         try:
             from reportlab.lib.pagesizes import letter

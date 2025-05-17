@@ -185,6 +185,11 @@ class ResumeVersionTracker:
         for key in ["overall_ats_score", "keyword_match_score", "format_score"]:
             old_val = older["analysis_summary"].get(key, 0)
             new_val = newer["analysis_summary"].get(key, 0)
+            
+            # Convert to float for consistent comparison
+            old_val = float(old_val)
+            new_val = float(new_val)
+            
             score_diff[key] = {
                 "old": old_val,
                 "new": new_val,
