@@ -7,7 +7,7 @@ import re
 from typing import Dict, List, Set, Tuple
 
 import nltk
-from PyPDF2 import PdfReader
+from pypdf import PdfReader  # Updated from PyPDF2 to pypdf
 from docx import Document
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -95,18 +95,19 @@ def normalize_text(text: str) -> str:
         Normalized text
     """
     # First, preserve double newlines by replacing them with a placeholder
-    text = re.sub(r"\n\s*\n", "DOUBLE_NEWLINE_PLACEHOLDER", text)
+    text = re.sub(r'\n\s*\n', 'DOUBLE_NEWLINE_PLACEHOLDER', text)
     
     # Replace multiple whitespace with single space
-    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r'\s+', ' ', text)
     
     # Restore double newlines
-    text = text.replace("DOUBLE_NEWLINE_PLACEHOLDER", "\n\n")
+    text = text.replace('DOUBLE_NEWLINE_PLACEHOLDER', '\n\n')
     
     # Remove leading/trailing whitespace
     text = text.strip()
     
     return text
+
 
 def get_keywords_from_job_description(job_description: str, max_keywords: int = 30) -> List[str]:
     """

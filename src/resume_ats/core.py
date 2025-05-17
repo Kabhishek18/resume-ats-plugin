@@ -212,61 +212,61 @@ class ResumeATS:
             logger.error(f"Error extracting text from {file_path}: {e}")
             return ""
     
-def _extract_sections(self, text: str) -> Dict[str, str]:
-    """Extract sections from resume text."""
-    # Common section headers in resumes
-    section_patterns = {
-        "summary": r"(?i)(SUMMARY|profile|summary|objective|professional\s+summary)$",
-        "experience": r"(?i)(experience|work\s+experience|employment|work\s+history)",
-        "skills": r"(?i)(skills|technical\s+skills|core\s+competencies|expertise)",
-        "education": r"(?i)(education|academic|qualifications|degrees)",
-        "projects": r"(?i)(projects|personal\s+projects|professional\s+projects)",
-        "certifications": r"(?i)(certifications|certificates|credentials)",
-        "achievements": r"(?i)(achievements|accomplishments|awards)"
-    }
-    
-    sections = {}
-    
-    # Sample text contains "SUMMARY" which should be detected
-    if "SUMMARY" in text:
-        summary_text = ""
-        for line in text.split("\n"):
-            if line.strip() == "SUMMARY":
-                continue
-            if line.strip() and line.strip() not in ["EXPERIENCE", "SKILLS", "EDUCATION"]:
-                summary_text += line + "\n"
+    def _extract_sections(self, text: str) -> Dict[str, str]:
+        """Extract sections from resume text."""
+        # Common section headers in resumes
+        section_patterns = {
+            "summary": r"(?i)(SUMMARY|profile|summary|objective|professional\s+summary)$",
+            "experience": r"(?i)(experience|work\s+experience|employment|work\s+history)",
+            "skills": r"(?i)(skills|technical\s+skills|core\s+competencies|expertise)",
+            "education": r"(?i)(education|academic|qualifications|degrees)",
+            "projects": r"(?i)(projects|personal\s+projects|professional\s+projects)",
+            "certifications": r"(?i)(certifications|certificates|credentials)",
+            "achievements": r"(?i)(achievements|accomplishments|awards)"
+        }
+        
+        sections = {}
+        
+        # Sample text contains "SUMMARY" which should be detected
+        if "SUMMARY" in text:
+            summary_text = ""
+            for line in text.split("\n"):
+                if line.strip() == "SUMMARY":
+                    continue
+                if line.strip() and line.strip() not in ["EXPERIENCE", "SKILLS", "EDUCATION"]:
+                    summary_text += line + "\n"
+                else:
+                    break
+            sections["summary"] = summary_text.strip()
+        
+        # Find all potential section headers and their positions
+        section_positions = []
+        for section_name, pattern in section_patterns.items():
+            for match in re.finditer(pattern, text, re.MULTILINE):
+                section_positions.append((match.start(), section_name))
+        
+        # Sort by position
+        section_positions.sort()
+        
+        # Extract section content
+        for i, (pos, section_name) in enumerate(section_positions):
+            # Section text goes from current position to next section (or end)
+            start = pos
+            end = section_positions[i+1][0] if i+1 < len(section_positions) else len(text)
+            
+            # Find the end of the section header line
+            header_end = text.find("\n", pos)
+            if header_end != -1 and header_end < end:
+                content_start = header_end + 1
             else:
-                break
-        sections["summary"] = summary_text.strip()
-    
-    # Find all potential section headers and their positions
-    section_positions = []
-    for section_name, pattern in section_patterns.items():
-        for match in re.finditer(pattern, text, re.MULTILINE):
-            section_positions.append((match.start(), section_name))
-    
-    # Sort by position
-    section_positions.sort()
-    
-    # Extract section content
-    for i, (pos, section_name) in enumerate(section_positions):
-        # Section text goes from current position to next section (or end)
-        start = pos
-        end = section_positions[i+1][0] if i+1 < len(section_positions) else len(text)
+                content_start = start + len(section_name) + 1
+            
+            # Extract and clean the section content
+            section_content = text[content_start:end].strip()
+            if section_content:
+                sections[section_name] = section_content
         
-        # Find the end of the section header line
-        header_end = text.find("\n", pos)
-        if header_end != -1 and header_end < end:
-            content_start = header_end + 1
-        else:
-            content_start = start + len(section_name) + 1
-        
-        # Extract and clean the section content
-        section_content = text[content_start:end].strip()
-        if section_content:
-            sections[section_name] = section_content
-    
-    return sections
+        return sections
     
     def _match_keywords(self, resume_text: str, keywords: List[str]) -> Tuple[float, List[str], List[str]]:
         """Match resume text against keywords from job description."""

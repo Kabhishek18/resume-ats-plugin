@@ -18,6 +18,11 @@ from src.resume_ats.utils import (
     calculate_similarity_score
 )
 
+# Mock pypdf for tests
+import sys
+from unittest.mock import MagicMock
+sys.modules['pypdf'] = MagicMock()
+
 
 class TestResumeATS(TestCase):
     """Test cases for the ResumeATS class."""
@@ -249,7 +254,7 @@ class TestCommandLine(TestCase):
     
     @mock.patch('src.resume_ats.core.analyze_resume')
     @mock.patch('argparse.ArgumentParser.parse_args')
-def test_main_analyze(self, mock_parse_args, mock_analyze_resume):
+    def test_main_analyze(self, mock_parse_args, mock_analyze_resume):
         """Test main function with analyze mode."""
         # Mock arguments
         mock_args = mock.Mock()
@@ -277,7 +282,7 @@ def test_main_analyze(self, mock_parse_args, mock_analyze_resume):
     
     @mock.patch('src.resume_ats.core.optimize_resume')
     @mock.patch('argparse.ArgumentParser.parse_args')
-def test_main_optimize(self, mock_parse_args, mock_optimize_resume):
+    def test_main_optimize(self, mock_parse_args, mock_optimize_resume):
         """Test main function with optimize mode."""
         # Mock arguments
         mock_args = mock.Mock()
