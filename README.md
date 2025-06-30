@@ -1,247 +1,211 @@
-# Resume ATS Plugin
 
-A Python plugin to analyze and optimize resumes for Applicant Tracking Systems (ATS).
+# README.md
+# ATS Resume Scorer Plugin
+
+A comprehensive Python-based plugin to score resumes against ATS (Applicant Tracking System) standards and job descriptions with actionable feedback.
 
 ## Features
 
-- **Resume Analysis**: Evaluate how well your resume will perform with ATS systems
-- **Keyword Optimization**: Match your resume against job descriptions to identify missing keywords
-- **Format Checking**: Verify that your resume follows recommended formatting guidelines
-- **Section Analysis**: Identify missing or weak sections in your resume
-- **Optimization Suggestions**: Get actionable tips to improve your resume's ATS score
-- **PDF Reports**: Generate comprehensive PDF reports with visualizations
-- **Resume Anonymization**: Remove personally identifiable information for sharing
-- **Version Tracking**: Keep track of resume revisions and improvements over time
-- **Resume Comparison**: Compare multiple resumes or one resume against multiple job descriptions
+### 📄 Resume Parsing Module
+- Supports `.pdf`, `.docx`, and `.txt` formats
+- Extracts structured data: contact info, skills, education, experience
+- Uses native Python libraries for reliable parsing
+
+### 📑 Job Description Matching Module  
+- Parses job descriptions and extracts key requirements
+- Identifies required vs preferred skills
+- Extracts education and experience requirements
+
+### 🧠 Configurable ATS Scoring Engine
+- **Keyword Match** (30%): Skills and responsibility overlap
+- **Title Match** (10%): Job title alignment  
+- **Education Match** (10%): Degree/qualification comparison
+- **Experience Match** (15%): Relevant experience assessment
+- **Format Compliance** (15%): ATS-friendly formatting
+- **Action Verbs & Grammar** (10%): Professional language usage
+- **Readability** (10%): Structure and clarity
+
+### 📊 Detailed Reporting
+- Overall ATS score (0-100) with letter grade
+- Sectional breakdown of all scoring categories
+- Actionable improvement recommendations
+- Missing skills identification
+- Job match analysis
 
 ## Installation
 
-You can install the package via pip:
 ```bash
-pip install resume-ats-plugin
+# Clone the repository
+git clone https://github.com/yourusername/ats-resume-scorer
+cd ats-resume-scorer
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install spaCy language model
+python -m spacy download en_core_web_sm
+
+# Install the package
+pip install -e .
 ```
 
-## Usage
+## Quick Start
 
-### Basic Usage
+### Command Line Usage
+
+```bash
+# Basic usage
+ats-score --resume resume.pdf --jd job_description.txt
+
+# Save output to file
+ats-score --resume resume.pdf --jd job_description.txt --output results.json
+
+# Use custom scoring weights
+ats-score --resume resume.pdf --jd job_description.txt --weights custom_weights.json
+```
+
+### Python API Usage
 
 ```python
-from resume_ats import ResumeATS, analyze_resume, optimize_resume
+from ats_resume_scorer import ATSResumeScorer
 
-# Quick analysis
-result = analyze_resume('path/to/resume.pdf')
-print(f"ATS Format Score: {result['stats']['format_score']:.2f}")
+# Initialize scorer
+scorer = ATSResumeScorer()
 
-# Analyze against a job description
+# Read job description
 with open('job_description.txt', 'r') as f:
-    job_description = f.read()
+    jd_text = f.read()
 
-result = analyze_resume('path/to/resume.pdf', job_description)
-print(f"ATS Score: {result['stats']['overall_ats_score']}%")
-print(f"Keyword Match: {result['stats']['keyword_match_score']:.2f}")
-print(f"Matched Keywords: {', '.join(result['stats']['keyword_matches'][:5])}")
+# Score resume
+result = scorer.score_resume('resume.pdf', jd_text)
 
-# Get optimization suggestions
-suggestions = optimize_resume('path/to/resume.pdf', job_description)
-for suggestion in suggestions['optimization_suggestions']:
-    print(f"- {suggestion['message']}")
+print(f"ATS Score: {result['overall_score']}/100")
+print(f"Grade: {result['grade']}")
+print("Recommendations:", result['recommendations'])
 ```
 
-### Enhanced Features
+## Configuration
 
-#### PDF Report Generation
+### Custom Scoring Weights
 
-```python
-from resume_ats import analyze_and_report, optimize_and_report
+Create a JSON file with custom weights:
 
-# Analyze resume and generate PDF report
-analysis, pdf_path = analyze_and_report('path/to/resume.pdf', job_description)
-print(f"Report saved to: {pdf_path}")
-
-# Get optimization suggestions with PDF report
-optimization, pdf_path = optimize_and_report('path/to/resume.pdf', job_description)
-print(f"Optimization report saved to: {pdf_path}")
-```
-
-#### Resume Anonymization
-
-```python
-from resume_ats import anonymize_resume_file, ResumeAnonymizer
-
-# Quick anonymization with default settings
-anonymized_path, replaced_items = anonymize_resume_file('path/to/resume.pdf')
-print(f"Anonymized resume saved to: {anonymized_path}")
-print(f"Replaced {len(replaced_items['names'])} names, {len(replaced_items['emails'])} emails")
-
-# Advanced anonymization with custom settings
-anonymizer = ResumeAnonymizer({
-    "anonymize_settings": {
-        "name": True,
-        "contact_info": True,
-        "education_institutions": False,
-        "company_names": False,
-        "dates": True,
-        "addresses": True
-    }
-})
-anonymized_path, _ = anonymizer.anonymize_file('path/to/resume.pdf', 'path/to/output.pdf')
-```
-
-#### Resume Version Tracking
-
-```python
-from resume_ats import EnhancedResumeATS, ResumeVersionTracker
-
-# Initialize with version tracking
-ats = EnhancedResumeATS()
-
-# Analyze resume and automatically track version
-analysis = ats.analyze('path/to/resume.pdf', job_description)
-version_id = ats.track_version('path/to/resume.pdf', analysis, "Version 1")
-
-# View version history
-versions = ats.get_version_history()
-for version in versions:
-    print(f"{version['version_name']} - {version['timestamp']} - Score: {version['overall_ats_score']}%")
-
-# Later, analyze an updated version
-analysis2 = ats.analyze('path/to/updated_resume.pdf', job_description)
-version_id2 = ats.track_version('path/to/updated_resume.pdf', analysis2, "Version 2")
-
-# Compare versions
-comparison = ats.compare_versions(version_id, version_id2)
-print(f"Score improved by {comparison['scores']['overall_ats_score']['difference']}%")
-```
-
-#### Resume Comparison
-
-```python
-from resume_ats import compare_resumes, compare_resume_to_jobs
-
-# Compare multiple resumes against one job description
-comparison = compare_resumes(
-    ['resume1.pdf', 'resume2.pdf', 'resume3.pdf'], 
-    job_description
-)
-print(f"Best resume: {comparison['rankings']['overall_ats_score'][0]}")
-
-# Compare one resume against multiple job descriptions
-job_descriptions = {
-    "Software Engineer": open("se_job.txt").read(),
-    "Data Scientist": open("ds_job.txt").read(),
-    "Product Manager": open("pm_job.txt").read()
+```json
+{
+    "keyword_match": 0.35,
+    "title_match": 0.15,
+    "education_match": 0.10,
+    "experience_match": 0.15,
+    "format_compliance": 0.10,
+    "action_verbs_grammar": 0.10,
+    "readability": 0.05
 }
-comparison = compare_resume_to_jobs('my_resume.pdf', job_descriptions)
-print(f"Best job match: {comparison['rankings']['overall_ats_score'][0]}")
-
-# Generate comparison charts
-from resume_ats import EnhancedResumeATS
-
-ats = EnhancedResumeATS()
-comparison = ats.compare_multiple_resumes(['resume1.pdf', 'resume2.pdf'], job_description)
-chart_paths = ats.generate_comparison_charts(comparison, 'charts_directory')
-print(f"Charts saved to: {chart_paths}")
 ```
 
-### Using the ResumeATS Class
+### Extending Skills Database
 
-```python
-from resume_ats import ResumeATS
+Add new skills to `config/skills_database.json`:
 
-# Initialize with custom scoring weights
-ats = ResumeATS(config={
-    'weights': {
-        'keyword_match': 0.5,
-        'format_score': 0.2,
-        'section_coverage': 0.2,
-        'readability': 0.1
-    }
-})
-
-# Analyze resume
-analysis = ats.analyze('path/to/resume.pdf', job_description)
-
-# Get optimization suggestions
-optimization = ats.optimize('path/to/resume.pdf', job_description)
-```
-
-### Command Line Interface
-
-The package also provides a command-line interface:
-
-```bash
-# Basic analysis
-resume-ats path/to/resume.pdf
-
-# Analyze against a job description
-resume-ats path/to/resume.pdf --job job_description.txt
-
-# Get optimization suggestions
-resume-ats path/to/resume.pdf --job job_description.txt --optimize
-
-# Save results to file
-resume-ats path/to/resume.pdf --job job_description.txt --output results.json
-
-# Set logging level
-resume-ats path/to/resume.pdf --log-level DEBUG
-```
-
-### Supported File Formats
-
-- PDF (.pdf)
-- Microsoft Word (.docx, .doc)
-
-## Advanced Configuration
-
-The package supports various configuration options:
-
-```python
-config = {
-    # Scoring weights
-    'weights': {
-        'keyword_match': 0.4,
-        'format_score': 0.2,
-        'section_coverage': 0.3,
-        'readability': 0.1
-    },
-    
-    # Anonymization settings
-    'anonymize_settings': {
-        'name': True,
-        'contact_info': True,
-        'education_institutions': False,
-        'company_names': False,
-        'dates': False,
-        'addresses': True,
-        'links': True,
-        'age': True,
-        'gender_clues': True
-    },
-    
-    # Version tracking
-    'version_storage_dir': '/path/to/storage',
-    'auto_track_versions': True
+```json
+{
+    "ai_ml": [
+        "machine learning", "deep learning", "nlp", "computer vision",
+        "tensorflow", "pytorch", "scikit-learn"
+    ]
 }
-
-ats = EnhancedResumeATS(config)
 ```
 
-## Development
+## Project Structure
 
-Clone the repository and install development dependencies:
+```
+ats-resume-scorer/
+├── ats_resume_scorer/
+│   ├── __init__.py
+│   ├── main.py              # Main plugin file
+│   ├── parsers/
+│   │   ├── resume_parser.py
+│   │   └── jd_parser.py
+│   ├── scoring/
+│   │   └── scoring_engine.py
+│   └── utils/
+│       └── report_generator.py
+├── config/
+│   ├── default_weights.json
+│   ├── skills_database.json
+│   └── action_verbs.json
+├── tests/
+│   ├── test_parser.py
+│   ├── test_scoring.py
+│   └── sample_data/
+├── examples/
+│   ├── sample_resume.pdf
+│   ├── sample_jd.txt
+│   └── example_usage.py
+├── requirements.txt
+├── setup.py
+└── README.md
+```
+
+## API Reference
+
+### ATSResumeScorer Class
+
+```python
+class ATSResumeScorer:
+    def __init__(self, weights: Optional[ScoringWeights] = None)
+    def score_resume(self, resume_path: str, jd_text: str) -> Dict[str, Any]
+```
+
+### Response Format
+
+```json
+{
+    "overall_score": 78.5,
+    "grade": "B",
+    "detailed_breakdown": {
+        "keyword_match": 85.0,
+        "title_match": 60.0,
+        "education_match": 90.0,
+        "experience_match": 75.0,
+        "format_compliance": 80.0,
+        "action_verbs_grammar": 70.0,
+        "readability": 85.0
+    },
+    "recommendations": [
+        "Add these missing required skills: docker, kubernetes",
+        "Use more action verbs in experience descriptions"
+    ],
+    "job_match_analysis": {
+        "required_skills_matched": 8,
+        "preferred_skills_matched": 3,
+        "missing_required_skills": ["docker", "kubernetes"],
+        "missing_preferred_skills": ["react", "aws"]
+    }
+}
+```
+
+## Testing
 
 ```bash
-git clone https://github.com/yourusername/resume-ats-plugin.git
-cd resume-ats-plugin
-pip install -e ".[dev]"
+# Run tests
+python -m pytest tests/
+
+# Run with coverage
+python -m pytest tests/ --cov=ats_resume_scorer
 ```
 
-Run tests:
+## Contributing
 
-```bash
-pytest
-```
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for new functionality
+4. Ensure all tests pass
+5. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License - see LICENSE file for details.
+
+## Support
+
+For issues and feature requests, please use the GitHub issue tracker.

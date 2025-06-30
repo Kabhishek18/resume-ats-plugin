@@ -1,0 +1,24 @@
+
+# config/skills_database.json
+{
+    "programming_languages": [
+        "python", "java", "javascript", "typescript", "c++", "c#", "go", "rust", 
+        "ruby", "php", "swift", "kotlin", "scala", "r", "matlab", "sql"
+    ],
+    "web_technologies": [
+        "html", "css", "react", "angular", "vue", "svelte", "node.js", "express",
+        "django", "flask", "spring boot", "laravel", "ruby on rails", "asp.net"
+    ],
+    "databases": [
+        "mysql", "postgresql", "mongodb", "redis", "elasticsearch", "cassandra",
+        "oracle", "sql server", "sqlite", "dynamodb", "neo4j"
+    ],
+    "cloud_platforms": [
+        "aws", "azure", "gcp", "heroku", "digitalocean", "linode", "cloudflare"
+    ],
+    "devops_tools": [
+        "docker", "kubernetes", "jenkins", "gitlab ci", "github actions", 
+        "terraform", "ansible", "puppet", "chef", "vagrant"
+    ],
+    "data_science": [
+        "pandas", "numpy", "scikit-learn
