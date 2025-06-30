@@ -1,35 +1,140 @@
-
-# Docker/docker-compose.yml
+# Docker/docker-compose.yml (Fixed with improved services)
 version: '3.8'
 
 services:
-  ats-scorer:
-    build: .
+  # Main ATS Scorer API service
+  ats-scorer-api:
+    build: 
+      context: ..
+      dockerfile: Docker/Dockerfile
+    container_name: ats-scorer-api
+    ports:
+      - "8000:8000"
     volumes:
-      - ./data:/app/data
-      - ./output:/app/output
+      - ../data:/app/data
+      - ../output:/app/output
+      - ../temp:/app/temp
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    command: ["python", "web_api.py", "--host", "0.0.0.0", "--port", "8000"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - postgres
+
+  # CLI service for batch processing
+  ats-scorer-cli:
+    build: 
+      context: ..
+      dockerfile: Docker/Dockerfile
+    container_name: ats-scorer-cli
+    volumes:
+      - ../data:/app/data
+      - ../output:/app/output
+      - ../examples:/app/examples
     environment:
       - PYTHONUNBUFFERED=1
     command: tail -f /dev/null  # Keep container running for interactive use
-  
+    restart: unless-stopped
+
+  # Redis for caching and session management
   redis:
-    image: redis:alpine
+    image: redis:7-alpine
+    container_name: ats-redis
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
 
+  # PostgreSQL for storing results (optional)
   postgres:
-    image: postgres:13
+    image: postgres:15-alpine
+    container_name: ats-postgres
     environment:
       POSTGRES_DB: ats_scorer
       POSTGRES_USER: ats_user
-      POSTGRES_PASSWORD: ats_password
+      POSTGRES_PASSWORD: ats_password_2024
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ats_user -d ats_scorer"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Nginx reverse proxy (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: ats-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ../static:/usr/share/nginx/html/static
+    depends_on:
+      - ats-scorer-api
+    restart: unless-stopped
+
+  # Monitoring with Prometheus (optional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: ats-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    restart: unless-stopped
+
+  # Grafana for visualization (optional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ats-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
 
 volumes:
   redis_data:
+    driver: local
   postgres_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  default:
+    name: ats-scorer-network
+    driver: bridge

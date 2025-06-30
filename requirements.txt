@@ -4,3 +4,17 @@ python-docx
 scikit-learn
 numpy
 pandas
+PyPDF2
+
+fastapi
+uvicorn
+python-multipart
+
+pytest
+pytest-cov
+black
+flake8
+mypy
+
+bandit
+safety

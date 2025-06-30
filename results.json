@@ -1,0 +1,172 @@
+{
+  "overall_score": 19.63,
+  "grade": "F",
+  "detailed_breakdown": {
+    "keyword_match": 2.39,
+    "title_match": 0,
+    "education_match": 0,
+    "experience_match": 0,
+    "format_compliance": 55,
+    "action_verbs_grammar": 56.62,
+    "readability": 50
+  },
+  "resume_summary": {
+    "has_contact_info": true,
+    "has_summary": true,
+    "skills_count": 24,
+    "education_count": 0,
+    "experience_count": 0,
+    "certifications_count": 5,
+    "total_word_count": 1143,
+    "has_linkedin": true,
+    "has_github": true
+  },
+  "job_match_analysis": {
+    "required_skills_matched": 0,
+    "required_skills_total": 30,
+    "required_match_percentage": 0.0,
+    "preferred_skills_matched": 0,
+    "preferred_skills_total": 4,
+    "preferred_match_percentage": 0.0,
+    "matched_required_skills": [],
+    "matched_preferred_skills": [],
+    "missing_required_skills": [
+      "relevant experience with a solid foundation in computer science fundamentals",
+      "intelligent technologies",
+      "complex sql",
+      "patterns",
+      "microservices",
+      "being",
+      "design and development",
+      "query tuning",
+      "or platforms",
+      "execution plans",
+      "saas",
+      "ooad",
+      "solving capabilities and innovative mind set.",
+      "views",
+      "people",
+      "spring 3",
+      "you can bring out your best.",
+      "procedures",
+      "analytics",
+      "including data structures and algorithms",
+      "10%",
+      "tenancy",
+      "software",
+      "indexes etc",
+      "we are purpose-driven and future-focused",
+      "functions",
+      "http protocol including cookies",
+      "sap hana database is an added advantage",
+      "unit testing and tdd/bdd methodologies",
+      "triggers"
+    ],
+    "missing_preferred_skills": [
+      "design and development",
+      "hybrid.",
+      "software",
+      "10%"
+    ]
+  },
+  "recommendations": [
+    "Add these critical missing skills: relevant experience with a solid foundation in computer science fundamentals, intelligent technologies, complex sql, patterns, microservices",
+    "Add work experience section",
+    "Quantify your achievements with numbers, percentages, or metrics",
+    "Add education section with relevant degrees or certifications",
+    "Use bullet points to list achievements in work experience",
+    "Use more action verbs to describe your achievements (e.g., 'developed', 'implemented', 'led')",
+    "Consider adjusting your job titles to better match the target role",
+    "Improve resume structure with clear sections and consistent formatting"
+  ],
+  "detailed_recommendations": [
+    {
+      "message": "Add these critical missing skills: relevant experience with a solid foundation in computer science fundamentals, intelligent technologies, complex sql, patterns, microservices",
+      "category": "Skills",
+      "priority": 1,
+      "impact": "Could increase keyword match score by 15-25 points"
+    },
+    {
+      "message": "Add work experience section",
+      "category": "Content",
+      "priority": 1,
+      "impact": "Experience section is critical for ATS parsing"
+    },
+    {
+      "message": "Quantify your achievements with numbers, percentages, or metrics",
+      "category": "Experience",
+      "priority": 1,
+      "impact": "Quantified achievements are more compelling and ATS-friendly"
+    },
+    {
+      "message": "Add education section with relevant degrees or certifications",
+      "category": "Education",
+      "priority": 1,
+      "impact": "Education section may be required for many positions"
+    },
+    {
+      "message": "Use bullet points to list achievements in work experience",
+      "category": "Format",
+      "priority": 2,
+      "impact": "Bullet points improve ATS parsing and readability"
+    },
+    {
+      "message": "Use more action verbs to describe your achievements (e.g., 'developed', 'implemented', 'led')",
+      "category": "Language",
+      "priority": 2,
+      "impact": "Improves ATS parsing and makes resume more compelling"
+    },
+    {
+      "message": "Consider adjusting your job titles to better match the target role",
+      "category": "Experience",
+      "priority": 2,
+      "impact": "Better title alignment can improve recruiter attention"
+    },
+    {
+      "message": "Improve resume structure with clear sections and consistent formatting",
+      "category": "Format",
+      "priority": 2,
+      "impact": "Better readability improves both ATS and human review"
+    }
+  ],
+  "scoring_weights": {
+    "keyword_match": 0.3,
+    "title_match": 0.1,
+    "education_match": 0.1,
+    "experience_match": 0.15,
+    "format_compliance": 0.15,
+    "action_verbs_grammar": 0.1,
+    "readability": 0.1
+  },
+  "improvement_potential": {
+    "current_score": 19.63,
+    "max_possible_score": 90.0,
+    "total_potential_gain": 70.37,
+    "top_improvement_areas": [
+      {
+        "category": "keyword_match",
+        "current_score": 2.39,
+        "potential_gain": 26.28,
+        "weight": 0.3
+      },
+      {
+        "category": "experience_match",
+        "current_score": 0,
+        "potential_gain": 13.5,
+        "weight": 0.15
+      },
+      {
+        "category": "title_match",
+        "current_score": 0,
+        "potential_gain": 9.0,
+        "weight": 0.1
+      }
+    ]
+  },
+  "ats_compatibility": {
+    "status": "Very Poor",
+    "description": "Your resume is unlikely to pass ATS filters",
+    "pass_likelihood": "Very Low",
+    "score": 19.63
+  }
+}

@@ -1,0 +1,8 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include ats_resume_scorer *.py
+recursive-include config *.json
+recursive-exclude tests *
+recursive-exclude Docker *
+recursive-exclude examples *

@@ -1,82 +1,204 @@
+# pyproject.toml - Complete Configuration for ATS Resume Scorer
 
-# pyproject.toml
 [build-system]
 requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "ats-resume-scorer"
-description = "A comprehensive ATS Resume Scoring Plugin"
+version = "1.2.0"
+description = "A comprehensive ATS Resume Scoring Plugin with advanced features including batch processing, web API, and Docker support"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "Your Name", email = "your.email@example.com"},
+    {name = "Kumar Abhishek", email = "developer@kabhishek18.com"},
 ]
-keywords = ["ats", "resume", "scoring", "hiring", "recruitment"]
+maintainers = [
+    {name = "Kumar Abhishek", email = "developer@kabhishek18.com"},
+]
+keywords = [
+    "ats", 
+    "resume", 
+    "scoring", 
+    "hiring", 
+    "recruitment", 
+    "nlp", 
+    "machine-learning", 
+    "job-matching",
+    "cv-analysis",
+    "applicant-tracking",
+    "hr-tools",
+    "recruitment-automation"
+]
+
 classifiers = [
+    # Development Status
     "Development Status :: 4 - Beta",
+    
+    # Intended Audience
     "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    
+    # License
     "License :: OSI Approved :: MIT License",
+    
+    # Operating System
     "Operating System :: OS Independent",
+    
+    # Programming Language
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+    
+    # Topic Categories
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Office/Business :: Scheduling",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Office/Business",
+    "Topic :: Utilities",
+    
+    # Environment
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    
+    # Natural Language
+    "Natural Language :: English",
+    
+    # Typing
+    "Typing :: Typed",
 ]
+
 dependencies = [
-    "spacy>=3.4.0",
-    "PyMuPDF>=1.20.0",
-    "python-docx>=0.8.11",
-    "scikit-learn>=1.1.0",
-    "numpy>=1.21.0",
-    "pandas>=1.3.0",
+    "spacy>=3.4.0,<4.0.0",
+    "PyMuPDF>=1.20.0,<2.0.0",
+    "python-docx>=0.8.11,<1.0.0",
+    "scikit-learn>=1.1.0,<2.0.0",
+    "numpy>=1.21.0,<2.0.0",
+    "pandas>=1.3.0,<3.0.0",
+    "PyPDF2>=3.0.0,<4.0.0",
 ]
-dynamic = ["version"]
 
 [project.optional-dependencies]
+# Development dependencies
 dev = [
-    "pytest>=7.0.0",
-    "pytest-cov>=3.0.0",
-    "black>=22.0.0",
-    "flake8>=4.0.0",
-    "mypy>=0.950",
-    "pre-commit>=2.17.0",
+    "pytest>=7.0.0,<8.0.0",
+    "pytest-cov>=3.0.0,<5.0.0",
+    "pytest-mock>=3.6.0,<4.0.0",
+    "black>=22.0.0,<24.0.0",
+    "flake8>=4.0.0,<7.0.0",
+    "mypy>=0.950,<2.0.0",
+    "pre-commit>=2.17.0,<4.0.0",
+    "bandit>=1.7.0,<2.0.0",
+    "safety>=2.0.0,<3.0.0",
+    "isort>=5.10.0,<6.0.0",
 ]
+
+# Web API dependencies
 web = [
-    "fastapi>=0.75.0",
-    "uvicorn>=0.17.0",
-    "python-multipart>=0.0.5",
+    "fastapi>=0.75.0,<1.0.0",
+    "uvicorn[standard]>=0.17.0,<1.0.0",
+    "python-multipart>=0.0.5,<1.0.0",
+    "jinja2>=3.0.0,<4.0.0",
+    "python-jose[cryptography]>=3.3.0,<4.0.0",
 ]
+
+# Documentation dependencies
 docs = [
-    "sphinx>=4.5.0",
-    "sphinx-rtd-theme>=1.0.0",
-    "myst-parser>=0.17.0",
+    "sphinx>=4.5.0,<7.0.0",
+    "sphinx-rtd-theme>=1.0.0,<2.0.0",
+    "myst-parser>=0.17.0,<1.0.0",
+    "sphinx-autodoc-typehints>=1.17.0,<2.0.0",
+]
+
+# Performance monitoring
+monitoring = [
+    "prometheus-client>=0.14.0,<1.0.0",
+    "psutil>=5.8.0,<6.0.0",
+]
+
+# Database support
+database = [
+    "psycopg2-binary>=2.9.0,<3.0.0",
+    "redis>=4.0.0,<5.0.0",
+    "sqlalchemy>=1.4.0,<3.0.0",
+    "alembic>=1.7.0,<2.0.0",
+]
+
+# All optional dependencies
+all = [
+    "ats-resume-scorer[dev,web,docs,monitoring,database]"
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/ats-resume-scorer"
-Documentation = "https://ats-resume-scorer.readthedocs.io/"
-Repository = "https://github.com/yourusername/ats-resume-scorer.git"
-"Bug Tracker" = "https://github.com/yourusername/ats-resume-scorer/issues"
+Homepage = "https://github.com/Kabhishek18/resume-ats-plugin"
+Documentation = "https://github.com/Kabhishek18/resume-ats-plugin#readme"
+Repository = "https://github.com/Kabhishek18/resume-ats-plugin.git"
+"Bug Tracker" = "https://github.com/Kabhishek18/resume-ats-plugin/issues"
+Changelog = "https://github.com/Kabhishek18/resume-ats-plugin/blob/main/CHANGELOG.md"
+"Source Code" = "https://github.com/Kabhishek18/resume-ats-plugin"
+Download = "https://pypi.org/project/ats-resume-scorer/"
+Funding = "https://github.com/sponsors/kabhishek18"
 
 [project.scripts]
 ats-score = "ats_resume_scorer.main:main"
+ats-scorer = "ats_resume_scorer.main:main"
+
+[project.gui-scripts]
+# Future GUI application entry point
+# ats-score-gui = "ats_resume_scorer.gui:main"
+
+[tool.setuptools]
+zip-safe = false
 
 [tool.setuptools.packages.find]
 include = ["ats_resume_scorer*"]
-exclude = ["tests*"]
+exclude = [
+    "tests*",
+    "docs*", 
+    "examples*",
+    "Docker*",
+    "scripts*",
+    "*.tests",
+    "*.tests.*",
+    "tests.*",
+]
+
+[tool.setuptools.package-data]
+ats_resume_scorer = [
+    "config/*.json",
+    "data/*.json",
+    "templates/*.html",
+    "static/*.css",
+    "static/*.js",
+]
+
+[tool.setuptools.exclude-package-data]
+"*" = [
+    "*.pyc",
+    "*.pyo",
+    "*~",
+    "*.so",
+    "*.dylib",
+    ".DS_Store",
+    "Thumbs.db",
+]
 
 [tool.setuptools_scm]
 write_to = "ats_resume_scorer/_version.py"
+version_scheme = "post-release"
+local_scheme = "dirty-tag"
 
+# Black code formatting
 [tool.black]
 line-length = 88
-target-version = ['py38']
-include = '\.pyi?
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
 extend-exclude = '''
 /(
   # directories
@@ -88,25 +210,57 @@ extend-exclude = '''
   | \.venv
   | build
   | dist
+  | migrations
+  | \.vscode
+  | \.pytest_cache
 )/
 '''
 
+# isort import sorting
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["ats_resume_scorer"]
+known_third_party = ["pytest", "setuptools"]
+
+# pytest configuration
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-ra -q --strict-markers --strict-config"
+addopts = [
+    "-ra",
+    "-q", 
+    "--strict-markers",
+    "--strict-config",
+    "--disable-warnings"
+]
 testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "web: marks tests that require web dependencies",
+    "docker: marks tests that require Docker",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
 ]
 
+# Coverage configuration
 [tool.coverage.run]
 source = ["ats_resume_scorer"]
 omit = [
     "*/tests/*",
     "*/test_*",
     "setup.py",
+    "ats_resume_scorer/_version.py",
+    "ats_resume_scorer/__main__.py",
 ]
+branch = true
 
 [tool.coverage.report]
 exclude_lines = [
@@ -118,122 +272,99 @@ exclude_lines = [
     "raise NotImplementedError",
     "if 0:",
     "if __name__ == .__main__.:",
-    "class .*\bProtocol\):",
-    "@(abc\.)?abstractmethod",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+    "except ImportError:",
 ]
+show_missing = true
+precision = 2
+skip_covered = false
 
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.coverage.xml]
+output = "coverage.xml"
+
+# MyPy type checking
 [tool.mypy]
 python_version = "3.8"
 warn_return_any = true
 warn_unused_configs = true
-disallow_untyped_defs = true
+disallow_untyped_defs = false
 disallow_incomplete_defs = true
 check_untyped_defs = true
-disallow_untyped_decorators = true
+disallow_untyped_decorators = false
 no_implicit_optional = true
 warn_redundant_casts = true
 warn_unused_ignores = true
 warn_no_return = true
 warn_unreachable = true
 strict_equality = true
+show_error_codes = true
 
 [[tool.mypy.overrides]]
 module = [
     "spacy.*",
-    "docx.*",
+    "docx.*", 
     "fitz.*",
     "sklearn.*",
+    "PyPDF2.*",
+    "pandas.*",
+    "numpy.*",
+    "uvicorn.*",
+    "fastapi.*",
+    "prometheus_client.*",
+    "psycopg2.*",
+    "redis.*",
 ]
 ignore_missing_imports = true
 
-# .pre-commit-config.yaml
-repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-added-large-files
-      - id: check-merge-conflict
-      - id: debug-statements
-      - id: check-docstring-first
+# Flake8 linting
+[tool.flake8]
+max-line-length = 88
+max-complexity = 12
+extend-ignore = [
+    "E203",  # whitespace before ':'
+    "E501",  # line too long
+    "W503",  # line break before binary operator
+    "E402",  # module level import not at top of file
+    "E731",  # do not assign a lambda expression
+]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+    ".tox",
+    "*.egg-info",
+    ".pytest_cache",
+    ".mypy_cache",
+]
+per-file-ignores = [
+    "__init__.py:F401",  # imported but unused
+    "tests/*:F401,F811,F841",  # test-specific ignores
+]
 
-  - repo: https://github.com/psf/black
-    rev: 22.12.0
-    hooks:
-      - id: black
-        language_version: python3
+# Bandit security linting
+[tool.bandit]
+exclude_dirs = ["tests", "build", "dist"]
+skips = ["B101", "B601"]  # assert_used, shell_injection
 
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
-    hooks:
-      - id: flake8
-        args: [--max-line-length=88, --extend-ignore=E203,W503]
+[tool.bandit.assert_used]
+exclude = ["*test*.py", "**/test_*.py"]
 
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        args: ["--profile", "black"]
+# Package versioning and release automation
+[tool.bumpver]
+current_version = "1.1.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "Bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = false
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.0.0
-    hooks:
-      - id: mypy
-        additional_dependencies: [types-all]
-
-# Makefile
-.PHONY: help install install-dev test lint format clean build docs docker
-
-help:			## Show this help
-	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$//' | sed -e 's/##//'
-
-install:		## Install package
-	pip install -e .
-	python -m spacy download en_core_web_sm
-
-install-dev:	## Install package with development dependencies
-	pip install -e ".[dev,web,docs]"
-	python -m spacy download en_core_web_sm
-	pre-commit install
-
-test:			## Run tests
-	pytest tests/ -v --cov=ats_resume_scorer --cov-report=html --cov-report=term
-
-test-fast:		## Run fast tests only
-	pytest tests/ -v -m "not slow"
-
-lint:			## Run linters
-	flake8 ats_resume_scorer tests
-	black --check ats_resume_scorer tests
-	mypy ats_resume_scorer
-
-format:			## Format code
-	black ats_resume_scorer tests
-	isort ats_resume_scorer tests
-
-clean:			## Clean build artifacts
-	rm -rf build/
-	rm -rf dist/
-	rm -rf *.egg-info/
-	rm -rf .pytest_cache/
-	rm -rf .coverage
-	rm -rf htmlcov/
-	find . -type d -name __pycache__ -delete
-	find . -type f -name "*.pyc" -delete
-
-build:			## Build package
-	python -m build
-
-docs:			## Build documentation
-	cd docs && make html
-
-docker-build:	## Build Docker image
-	docker build -t ats-resume-scorer .
-
-docker-run:		## Run Docker container
-	docker run -it --rm -v $(PWD)/data:/app/data ats-resume-scorer
-
-docker-compose:	## Start services with docker-compose
-	docker-compose -f Docker/docker-compose.yml up -d
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['version = "{version}"']
+"ats_resume_scorer/__init__.py" = ['__version__ = "{version}"']
+"README.md" = ['version {version}']

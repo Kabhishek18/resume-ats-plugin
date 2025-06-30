@@ -8,6 +8,7 @@ import tempfile
 import os
 from pathlib import Path
 
+
 @pytest.fixture
 def sample_resume_text():
     """Sample resume text for testing"""
@@ -51,6 +52,7 @@ def sample_resume_text():
     - Certified Scrum Master
     """
 
+
 @pytest.fixture
 def sample_job_description():
     """Sample job description for testing"""
@@ -88,15 +90,16 @@ def sample_job_description():
     - Ensure code quality and best practices
     """
 
+
 @pytest.fixture
 def temp_resume_file(sample_resume_text):
     """Create temporary resume file for testing"""
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
         f.write(sample_resume_text)
         temp_file = f.name
-    
+
     yield temp_file
-    
+
     # Cleanup
     if os.path.exists(temp_file):
         os.unlink(temp_file)
