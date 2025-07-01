@@ -1,0 +1,203 @@
+{
+  "overall_score": 22.81,
+  "grade": "F",
+  "detailed_breakdown": {
+    "keyword_match": 6.2,
+    "title_match": 0,
+    "education_match": 0,
+    "experience_match": 0,
+    "format_compliance": 55,
+    "action_verbs_grammar": 56.98,
+    "readability": 70
+  },
+  "resume_summary": {
+    "has_contact_info": true,
+    "has_summary": true,
+    "skills_count": 25,
+    "education_count": 0,
+    "experience_count": 0,
+    "certifications_count": 2,
+    "total_word_count": 1060,
+    "has_linkedin": false,
+    "has_github": false
+  },
+  "job_match_analysis": {
+    "required_skills_matched": 0,
+    "required_skills_total": 3,
+    "required_match_percentage": 0.0,
+    "preferred_skills_matched": 0,
+    "preferred_skills_total": 1,
+    "preferred_match_percentage": 0.0,
+    "matched_required_skills": [],
+    "matched_preferred_skills": [],
+    "missing_required_skills": [
+      "software engineering experience",
+      "in a team/tech lead role",
+      "employment type: full-time"
+    ],
+    "missing_preferred_skills": [
+      "frontend frameworks (react"
+    ]
+  },
+  "recommendations": [
+    "Add these critical missing skills: software engineering experience, in a team/tech lead role, employment type: full-time",
+    "Add work experience section",
+    "Quantify your achievements with numbers, percentages, or metrics",
+    "Add education section with relevant degrees or certifications",
+    "Use more action verbs to describe your achievements (e.g., 'developed', 'implemented', 'led')",
+    "Consider adjusting your job titles to better match the target role"
+  ],
+  "detailed_recommendations": [
+    {
+      "message": "Add these critical missing skills: software engineering experience, in a team/tech lead role, employment type: full-time",
+      "category": "Skills",
+      "priority": "High",
+      "impact": "Could increase keyword match score by 15-25 points",
+      "detailed_explanation": null,
+      "action_steps": [
+        "Add 'software engineering experience' to your skills section",
+        "Add 'in a team/tech lead role' to your skills section",
+        "Add 'employment type: full-time' to your skills section",
+        "Include these skills in your experience descriptions",
+        "Consider taking online courses to gain these skills"
+      ],
+      "examples": [
+        "Skills: Python, JavaScript, software engineering experience, in a team/tech lead role",
+        "Experience: Developed applications using software engineering experience"
+      ]
+    },
+    {
+      "message": "Add work experience section",
+      "category": "Content",
+      "priority": "High",
+      "impact": "Experience section is critical for ATS parsing",
+      "detailed_explanation": null,
+      "action_steps": [
+        "List positions in reverse chronological order",
+        "Include job title, company, dates, and location",
+        "Add 3-5 bullet points per position",
+        "Focus on achievements, not just responsibilities"
+      ],
+      "examples": [
+        "Software Engineer | Tech Corp | Jan 2020 - Dec 2023 | San Francisco, CA",
+        "• Developed 5 web applications serving 50,000+ users",
+        "• Led team of 3 developers in agile environment"
+      ]
+    },
+    {
+      "message": "Quantify your achievements with numbers, percentages, or metrics",
+      "category": "Experience",
+      "priority": "High",
+      "impact": "Quantified achievements are more compelling and ATS-friendly",
+      "detailed_explanation": null,
+      "action_steps": [
+        "Add specific numbers to demonstrate impact",
+        "Include percentages for improvements",
+        "Mention team sizes you managed",
+        "Specify budget amounts or revenue generated"
+      ],
+      "examples": [
+        "Improved application performance by 40%",
+        "Managed team of 8 developers",
+        "Increased sales by $2.5M annually",
+        "Reduced processing time from 2 hours to 15 minutes"
+      ]
+    },
+    {
+      "message": "Add education section with relevant degrees or certifications",
+      "category": "Education",
+      "priority": "High",
+      "impact": "Education section may be required for many positions",
+      "detailed_explanation": null,
+      "action_steps": [
+        "List degree, institution, and graduation year",
+        "Include relevant coursework if recent graduate",
+        "Add certifications and professional development",
+        "Include GPA if 3.5 or higher"
+      ],
+      "examples": [
+        "Bachelor of Science in Computer Science",
+        "University of Technology | 2020",
+        "Relevant Coursework: Data Structures, Algorithms, Database Systems"
+      ]
+    },
+    {
+      "message": "Use more action verbs to describe your achievements (e.g., 'developed', 'implemented', 'led')",
+      "category": "Language",
+      "priority": "Medium",
+      "impact": "Improves ATS parsing and makes resume more compelling",
+      "detailed_explanation": null,
+      "action_steps": [
+        "Replace passive voice with active voice",
+        "Start bullet points with strong action verbs",
+        "Use past tense for previous roles, present tense for current role",
+        "Quantify achievements with numbers and percentages"
+      ],
+      "examples": [
+        "Instead of: 'Was responsible for managing team' → 'Led team of 5 developers'",
+        "Instead of: 'Helped with project' → 'Delivered project 2 weeks ahead of schedule'",
+        "Instead of: 'Worked on application' → 'Developed web application serving 10,000+ users'"
+      ]
+    },
+    {
+      "message": "Consider adjusting your job titles to better match the target role",
+      "category": "Experience",
+      "priority": "Medium",
+      "impact": "Better title alignment can improve recruiter attention",
+      "detailed_explanation": null,
+      "action_steps": [
+        "Review target job title and identify key terms",
+        "Adjust your most recent title to include relevant keywords",
+        "Use industry-standard job titles when possible",
+        "Consider adding alternate titles in parentheses"
+      ],
+      "examples": [
+        "Current: Software Developer → Target: Job Description Senior Software Engineer Lead",
+        "Software Engineer (Full-Stack Developer)",
+        "Data Analyst (Business Intelligence Specialist)"
+      ]
+    }
+  ],
+  "recommendation_level": "detailed",
+  "llm_enhanced": false,
+  "scoring_weights": {
+    "keyword_match": 0.3,
+    "title_match": 0.1,
+    "education_match": 0.1,
+    "experience_match": 0.15,
+    "format_compliance": 0.15,
+    "action_verbs_grammar": 0.1,
+    "readability": 0.1
+  },
+  "improvement_potential": {
+    "current_score": 22.81,
+    "max_possible_score": 90.0,
+    "total_potential_gain": 67.19,
+    "top_improvement_areas": [
+      {
+        "category": "keyword_match",
+        "current_score": 6.2,
+        "potential_gain": 25.14,
+        "weight": 0.3
+      },
+      {
+        "category": "experience_match",
+        "current_score": 0,
+        "potential_gain": 13.5,
+        "weight": 0.15
+      },
+      {
+        "category": "title_match",
+        "current_score": 0,
+        "potential_gain": 9.0,
+        "weight": 0.1
+      }
+    ]
+  },
+  "ats_compatibility": {
+    "status": "Very Poor",
+    "description": "Your resume is unlikely to pass ATS filters",
+    "pass_likelihood": "Very Low",
+    "score": 22.81
+  }
+}

@@ -1,0 +1,71 @@
+Job Description: Senior Software Engineer Lead
+Job Title: Senior Software Engineer Lead
+Location: [Onsite/Remote/Hybrid – City, State]
+Experience: 7+ years
+Employment Type: Full-Time
+Reports To: Engineering Manager / CTO
+
+About the Role:
+We are seeking an experienced Senior Software Engineer Lead to drive the design, development, and delivery of high-quality software systems. This leadership role requires a blend of hands-on engineering expertise and strategic thinking. The ideal candidate will lead cross-functional teams, mentor junior engineers, and ensure the development of scalable, secure, and performant software solutions.
+
+Key Responsibilities:
+Lead end-to-end architecture and development of scalable backend systems and APIs
+
+Guide full-stack application development (backend-heavy) using modern frameworks
+
+Collaborate with Product, Design, and DevOps teams to define technical requirements
+
+Ensure high code quality through best practices, code reviews, and mentoring
+
+Integrate AI/ML models and real-time services into production workflows
+
+Implement CI/CD pipelines, cloud deployments, and DevOps processes
+
+Monitor system performance and drive continuous improvement
+
+Foster a culture of innovation, ownership, and accountability within the team
+
+Technical Skills & Tools:
+Languages/Frameworks: Python, Django/Flask, REST APIs, JavaScript (React/Next.js optional)
+
+Databases: MongoDB, PostgreSQL, Redis, MySQL
+
+DevOps/Cloud: Docker, Kubernetes, Jenkins, GitHub Actions, AWS/GCP/Azure
+
+AI/ML Tools: spaCy, Hugging Face, Ollama, TensorFlow, PyTorch, LangChain (preferred)
+
+Other: WebSockets, GraphQL, Celery, Microservices, WebRTC (optional)
+
+Qualifications:
+Bachelor’s or Master’s degree in Computer Science, Engineering, or related field
+
+7+ years of software engineering experience, including 2+ years in a team/tech lead role
+
+Strong understanding of system architecture, scalability, and performance tuning
+
+Proven experience managing the delivery of production-grade software
+
+Excellent communication, leadership, and mentoring skills
+
+Familiarity with Agile methodologies and best practices in software development
+
+Nice to Have:
+Experience with frontend frameworks (React, Angular, Vue)
+
+Exposure to MLOps, LangChain, or Retrieval-Augmented Generation (RAG) systems
+
+Certifications in cloud platforms (AWS/GCP/Azure) or Agile/DevOps practices
+
+Open-source contributions or portfolio/GitHub projects
+
+What We Offer:
+Competitive salary with performance bonuses
+
+Remote-friendly environment with flexible working hours
+
+Opportunity to work with cutting-edge AI and cloud technologies
+
+Dynamic and collaborative team culture
+
+Career growth and learning support through training and certifications
+

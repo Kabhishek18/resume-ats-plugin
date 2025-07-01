@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ats-resume-scorer"
-version = "1.2.0"
+version = "2.0.0"
 description = "A comprehensive ATS Resume Scoring Plugin with advanced features including batch processing, web API, and Docker support"
 readme = "README.md"
 requires-python = ">=3.8"
